@@ -1,16 +1,22 @@
 const express = require('express');
-const ctrl = require('../../controllers').transactions;
-const { validation, auth, validId } = require('../../middlewares');
-const { transactionSchema } = require('../../models').transactions;
+const ctrl = require('../../controllers/users/index.js');
+const { validation, auth } = require('../../middlewares/index.js');
+const { users } = require('../../models/index.js');
 
 const router = express.Router();
 
-router.post('/transactions', auth, validation(transactionSchema), ctrl.add);
+router.post(
+  '/transactions',
+  validation(users.registerJoiSchema),
+  ctrl.register,
+);
 
-router.get('/transactions/:id', auth, validId, ctrl.getById);
+router.get('/transactions/:id', validation(users.loginJoiSchema), ctrl.login);
 
-// router.get('/transactions/:id/month', auth, validId, ctrl.getByIdMont);
+router.get('/transactions/:id/month', auth, ctrl.getCurrent);
 
-// router.get('/transactions/:id/year', auth, validId, ctrl.getByIdYear);
+router.post('/transactions/:id/year', auth, ctrl.logout);
+
+// router.patch('/', auth, validation(users.subscriptionJoiSchema), ctrlWrapper(ctrl.updateSubscription));
 
 module.exports = router;
