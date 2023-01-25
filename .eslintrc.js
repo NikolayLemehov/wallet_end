@@ -4,9 +4,14 @@ module.exports = {
     es2021: true,
     node: true,
   },
-  extends: ["standard", "prettier"],
+  extends: ['standard', 'prettier'],
   parserOptions: {
     ecmaVersion: 12,
   },
-  rules: {},
+  rules: {
+    'semi': [2, 'always'],
+    'comma-dangle': ['error', 'always-multiline'],
+    'quotes': ['error', 'single'],
+    'no-extra-semi': 'error',
+  },
 };

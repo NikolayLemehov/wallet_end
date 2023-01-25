@@ -1,4 +1,4 @@
-const {ctrlWrapper} = require("../../middlewares/index.js");
+const {ctrlWrapper} = require('../../middlewares/index.js');
 const getCurrent = async (req, res) => {
   const {email, subscription} = req.user;
 

@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 const {Model: User} = require('../../models').users;
-const createError = require("http-errors");
+const createError = require('http-errors');
 const bcrypt = require('bcrypt');
-const {ctrlWrapper} = require("../../middlewares/index.js");
+const {ctrlWrapper} = require('../../middlewares/index.js');
 
 const {SECRET_KEY} = process.env;
 
@@ -10,7 +10,7 @@ const login = async (req, res) => {
   const {email, password} = req.body;
   const user = await User.findOne({email});
   if (!user || !(await bcrypt.compare(password, user.password)))
-    throw createError(401, `Email or password or verification is wrong`);
+    throw createError(401, 'Email or password or verification is wrong');
 
 
   const payload = {
