@@ -20,3 +20,4 @@ const specs = swaggerJsDoc({
 // app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 module.exports = [swaggerUI.serve, swaggerUI.setup(specs)];
+

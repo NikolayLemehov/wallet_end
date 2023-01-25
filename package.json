@@ -6,7 +6,9 @@
     "start": "cross-env NODE_ENV=production node ./server.js",
     "start:dev": "cross-env NODE_ENV=development nodemon ./server.js",
     "lint": "eslint --max-warnings 0 \"**/*.js\"",
-    "lint:fix": "eslint --fix **/*.js"
+    "lint:fix": "eslint --fix **/*.js",
+    "lint-staged:fix": "git add -A & npx lint-staged **/*.js & git reset HEAD",
+    "lsf": "npm run lint-staged:fix"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.7.0",
@@ -32,7 +34,16 @@
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "5.2.0",
+    "lint-staged": "^13.1.0",
     "nodemon": "2.0.15"
   },
-  "eslintIgnore": ["node_modules"]
+  "eslintIgnore": [
+    "node_modules"
+  ],
+  "lint-staged": {
+    "./**/*.js": [
+      "eslint --fix"
+    ]
+  }
+
 }
