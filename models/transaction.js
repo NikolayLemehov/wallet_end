@@ -2,36 +2,45 @@ const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 const { HandleMongooseError } = require('../helpers');
 
-const categoryTypes = [
+const categories = [
   'Main expenses',
   'Products',
   'Car',
   'Self care',
   'Child care',
   'Household products',
-  'Educations',
+  'Education',
   'Leisure',
+  'Other expenses',
+  'Entertainment',
 ];
 
-const transactionSchema = new Schema(
-  {
-    Type: {
-      type: Boolean,
-      required: true,
+const transactionSchema = new Schema({
+    date: {
+      type: Date,
+      required: [true, 'Date is required'],
     },
-    Category: {
+    type: {
+      type: Boolean,
+      required: [true, 'Type is required'],
+    },
+    category: {
       type: String,
-      enum: categoryTypes,
+      enum: categories,
       required: [true, 'Set category for transaction'],
     },
-    Comment: {
+    comment: {
       type: String,
-      default: 'Transaction without comment',
+      default: '',
     },
-    Sum: {
+    sum: {
       type: Number,
       default: 0,
       minimum: 0,
+      required: [true, 'Sum is required'],
+    },
+    balance: {
+      type: Number,
       required: true,
     },
     owner: {
@@ -45,18 +54,32 @@ const transactionSchema = new Schema(
 
 transactionSchema.post('save', HandleMongooseError);
 
-const transactionJoiSchema = Joi.object({
-  Type: Joi.boolean().required(),
-  Category: Joi.string()
-    .valid(...categoryTypes)
-    .required(),
-  Comment: Joi.string(),
-  Sum: Joi.number().min(0).required(),
-});
-
 const Model = model('transaction', transactionSchema);
 
+const addTransJoiSchema = Joi.object({
+  date: Joi.date().required(),
+  type: Joi.boolean().required(),
+  category: Joi.allow(...categories).required(),
+  comment: Joi.string(),
+  sum: Joi.number().min(0.01).required(),
+  balance: Joi.number(),
+});
+
 module.exports = {
-  transactionJoiSchema,
+  addTransJoiSchema,
   Model,
 };
+
+// TO DO
+// const find = async() => {
+//   console.log(await Transaction.find({}, "createdAt").sort({createdAt: -1}));
+// зберігаємо в масив, витягуємо баланс з елемента під 0 індексом і додаєм, щоб отримати поточний баланс
+// }
+// find();
+
+// приймає місяць та рік (month = 1, year = 2023)
+// const arr = await Transaction.find({ date: { $gte: 1-${month}-2023, $lte: 32-2-2023 } });
+// на фронт енді:
+// categories = масив категорій
+// categories.map()
+// arr.filter(trans.category == "").reduce((total, trans) => { return total + trans.sum }, 0)

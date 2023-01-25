@@ -1,5 +1,4 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 
 const emailRegexp = /^\w+[\w-.]*\w@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/;
@@ -23,19 +22,11 @@ const userSchema = new Schema({
       type: String,
       default: null,
     },
-    // verify: {
-    //   type: Boolean,
-    //   default: false,
-    // },
-    // verificationToken: {
-    //   type: String,
-    //   required: [true, 'Verify token is required'],
-    // },
   },
   {versionKey: false, timestamps: true},
 );
 
-const Model = mongoose.model('user', userSchema);
+const Model = model('user', userSchema);
 
 const registerJoiSchema = Joi.object({
   email: Joi.string().pattern(emailRegexp).min(10).max(63).required(),
