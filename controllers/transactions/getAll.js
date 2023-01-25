@@ -2,7 +2,7 @@ const { Transaction } = require('../../models').transactions;
 
 const getAll = async (req, res) => {
   const { _id: owner } = req.user;
-  const { page = 1, limit = 5 } = req.query;
+  const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
   const transactions = await Transaction.find(
     { owner },
@@ -11,7 +11,7 @@ const getAll = async (req, res) => {
       skip,
       limit,
     },
-  ).populate('owner', 'name email');
+  ).populate('owner', '-createedAt -updatedAt');
   res.json({
     status: 'success',
     code: 200,
