@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 
-const categorySchema = new Schema(
+const categorySchema = Schema(
   {
     name: {
       type: String,
