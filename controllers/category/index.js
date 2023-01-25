@@ -1,4 +1,5 @@
-const category = require("./category");
+const getAll = require('./getAll.js');
+
 module.exports = {
-  category,
+  getAll,
 };

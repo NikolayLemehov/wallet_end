@@ -1,10 +1,10 @@
-const { Category } = require("../../models");
+const { Category: GetAll } = require('../../models');
 
 const getAll = async (req, res, next) => {
   try {
-    const result = await Category.getAll();
+    const result = await GetAll.getAll();
     res.json({
-      status: "success",
+      status: 'success',
       code: 200,
       data: {
         result,
