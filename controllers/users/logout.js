@@ -1,4 +1,4 @@
-const {ctrlWrapper} = require("../../middlewares/index.js");
+const {ctrlWrapper} = require('../../middlewares/index.js');
 const {Model: User} = require('../../models').users;
 
 const logout = async (req, res) => {
