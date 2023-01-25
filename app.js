@@ -4,12 +4,12 @@ const cors = require('cors');
 
 const router = require('./routes/api');
 
-// const swaggerUI = require('swagger-ui-express');
-// const YAML = require("yamljs");
-// const swaggerJSDocs = YAML.load("./api.yaml");
+const swaggerUI = require('swagger-ui-express');
+const YAML = require("yamljs");
+const swaggerJSDocs = YAML.load("./api.yaml");
 
 const app = express();
-// app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJSDocs));
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJSDocs));
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short';
 
