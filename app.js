@@ -17,7 +17,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-// app.use('/api/contacts', router.contacts);
+app.use('/api/transactions', router.transactions);
 app.use('/api/users', router.users);
 
 app.use((req, res) => {
