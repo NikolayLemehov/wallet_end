@@ -12,8 +12,8 @@ const categories = [
     "Education",
     "Leisure",
     "Other expenses",
-    "Entertainment"
-]
+    "Entertainment",
+];
 
 const transactionSchema = new Schema({
     date: {
@@ -37,7 +37,7 @@ const transactionSchema = new Schema({
         required: [true, 'Sum is required'],
     },
     balance: {
-        type: Nuber,
+        type: Number,
     },
     owner: {
         type: Schema.Types.ObjectId,
@@ -65,8 +65,15 @@ module.exports = {
 
 // TO DO 
 // const find = async() => {
-//   console.log(await Model.find({}, "createdAt").sort({createdAt: -1})); 
+//   console.log(await Transaction.find({}, "createdAt").sort({createdAt: -1})); 
 // зберігаємо в масив, витягуємо баланс з елемента під 0 індексом і додаєм, щоб отримати поточний баланс
 // }
 // find();
 
+
+// приймає місяць та рік (month = 1, year = 2023)
+// const arr = await Transaction.find({ date: { $gte: 1-${month}-2023, $lte: 32-2-2023 } });
+// на фронт енді:
+// categories = масив категорій
+// categories.map()
+// arr.filter(trans.category == "").reduce((total, trans) => { return total + trans.sum }, 0)
