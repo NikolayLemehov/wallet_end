@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const Joi = require("joi");
+const Joi = require('joi');
 
 // const subscriptionTypes = ["starter", "pro", "business"];
 
@@ -46,7 +46,7 @@ const user = new Schema({
   {versionKey: false, timestamps: true},
 );
 
-const Model = mongoose.model("user", user);
+const Model = mongoose.model('user', user);
 
 const registerJoiSchema = Joi.object({
   email: Joi.string().required(),
