@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const Joi = require('joi');
 
-const emailRegexp = /^\w+[\w-\.]*\w\@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/;
+const emailRegexp = /^\w+[\w-.]*\w@\w+((-\w+)|(\w*))\.[a-z]{2,3}$/;
 
 const userSchema = new Schema({
     email: {
