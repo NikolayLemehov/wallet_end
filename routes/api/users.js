@@ -15,4 +15,5 @@ router.post('/logout', auth, ctrl.logout);
 
 // router.patch('/', auth, validation(users.subscriptionJoiSchema), ctrlWrapper(ctrl.updateSubscription));
 
-module.exports = router;
+module.exports = router;)
+
