@@ -1,10 +1,11 @@
-const { Category: GetAll } = require('../../models');
+const { Category: GetAll } = require("../../models");
+const { ctrlWrapper } = require("../../middlewares");
 
 const getAll = async (req, res, next) => {
   try {
     const result = await GetAll.getAll();
     res.json({
-      status: 'success',
+      status: "success",
       code: 200,
       data: {
         result,
@@ -15,4 +16,4 @@ const getAll = async (req, res, next) => {
   }
 };
 
-module.exports = getAll;
+module.exports = ctrlWrapper(getAll);
