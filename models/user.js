@@ -18,6 +18,11 @@ const userSchema = new Schema({
       type: String,
       required: [true, 'Name is required'],
     },
+    balance: {
+      type: Number,
+      required: [true, 'Balance is required'],
+      default: 0,
+    },
     token: {
       type: String,
       default: null,
