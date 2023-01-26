@@ -19,7 +19,10 @@ app.use(express.json());
 
 app.use('/api/transactions', router.transactions);
 app.use('/api/users', router.users);
-app.use('/api/categories', router.category);
+app.use('/api/categories', (req, res, next) => {
+  console.log('categories');
+  next()
+}, router.category);
 
 app.use((req, res) => {
   res.status(404).json({message: 'Not found'});
