@@ -5,13 +5,14 @@ const { users } = require("../../models");
 
 const router = express.Router();
 
-router.post("/register", validation(users.registerJoiSchema), ctrl.register);
+router.post("/signup", validation(users.registerJoiSchema), ctrl.register);
 
-router.post("/login", validation(users.loginJoiSchema), ctrl.login);
+router.post("/signin", validation(users.loginJoiSchema), ctrl.login);
+
+router.post("/signout", auth, ctrl.logout);
 
 router.get("/current", auth, ctrl.getCurrent);
 
-router.post("/logout", auth, ctrl.logout);
 
 // router.patch('/', auth, validation(users.subscriptionJoiSchema), ctrlWrapper(ctrl.updateSubscription));
 
