@@ -3,7 +3,7 @@ const { Model: Transaction } = require('../../models').transactions;
 const add = async (req, res) => {
   const { _id: owner } = req.user;
 
-  const result = await Transaction.create({ ...req.body, owner });
+  const result = await Transaction.create({ ...req.body, owner, balance: 10 });
   res.status(201).json({
     status: 'success',
     code: 201,

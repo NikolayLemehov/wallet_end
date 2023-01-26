@@ -1,4 +1,4 @@
-const { Transaction } = require('../../models').transactions;
+const { Model:Transaction } = require('../../models').transactions;
 
 const getAll = async (req, res) => {
   const { _id: owner } = req.user;
