@@ -13,6 +13,6 @@ router.post("/", auth, validation(transactions.addTransJoiSchema), ctrl.add);
 
 router.get("/categories", auth);
 
-router.get("/statistic", auth);
+router.get("/statistic", auth, ctrl.getStatistic);
 
 module.exports = router;
