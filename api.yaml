@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Wallet - Swagger OpenAPI 3.0
+  title: Wallet - Swagger OpenAPI 3.0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   description: |-
     This is a GoIT group project by Swagger OpenAPI 3.0
   version: 1.0.0
@@ -10,13 +10,13 @@ servers:
   - url: https://goit-wallet-back.onrender.com/api
     description: web server
 tags:
-  - name: contact
+  - name: transition
     description: Everything about your Contacts
   - name: user
     description: Operations about user
 
 paths:
-  /contacts:
+  /transition:
     get:
       tags:
         - contact
