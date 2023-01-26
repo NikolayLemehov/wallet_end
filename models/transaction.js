@@ -39,8 +39,9 @@ const transactionSchema = new Schema({
       minimum: 0,
       required: [true, 'Sum is required'],
     },
-    balance: {
+    balanceAfter: {
       type: Number,
+      minimum: 0,
       required: true,
     },
     owner: {
@@ -62,7 +63,7 @@ const addTransJoiSchema = Joi.object({
   category: Joi.allow(...categories).required(),
   comment: Joi.string(),
   sum: Joi.number().min(0.01).required(),
-  balance: Joi.number(),
+  balanceAfter: Joi.number(),
 });
 
 module.exports = {
