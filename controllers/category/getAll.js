@@ -1,9 +1,9 @@
-const { Category: GetAll } = require("../../models");
 const { ctrlWrapper } = require("../../middlewares");
+const {Model: Category} = require("../../models/category.js");
 
 const getAll = async (req, res, next) => {
   try {
-    const result = await GetAll.getAll();
+    const result = Category.find({});
     res.json({
       status: "success",
       code: 200,
