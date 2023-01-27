@@ -9,4 +9,4 @@
 ## Postman
 
 - Файл для імпорту [тут](./assets/postman/wallet.postman_collection.json)
-- Гайд [тут]()
+- Гайд [тут](./README.postman.md)
