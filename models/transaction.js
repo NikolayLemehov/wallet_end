@@ -25,9 +25,9 @@ const transactionSchema = new Schema({
       required: [true, 'Type is required'],
     },
     category: {
-      type: String,
-      enum: categories,
-      required: [true, 'Set category for transaction'],
+      type: Schema.Types.ObjectId,
+      ref: 'category',
+      required: true,
     },
     comment: {
       type: String,
@@ -66,8 +66,14 @@ const addTransJoiSchema = Joi.object({
   balanceAfter: Joi.number(),
 });
 
+const getStatisticJoiSchema = Joi.object({
+  year: Joi.number().integer().min(2000).required(),
+  month: Joi.number().integer().min(1).max(12).required(),
+});
+
 module.exports = {
   addTransJoiSchema,
+  getStatisticJoiSchema,
   Model,
 };
 
