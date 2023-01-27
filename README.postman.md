@@ -6,7 +6,7 @@
   <img src="./assets/postman/Screenshot_1.png" alt="screen">
 - #### Тиснемо наступну кнопку import
   <img src="./assets/postman/Screenshot_2.png" alt="screen">
-- #### Обираємо потрібне
+- #### Обираємо потрібне (опційно)*
   <img src="./assets/postman/Screenshot_3.png" alt="screen">
 - #### Ми імпортували
   <img src="./assets/postman/Screenshot_4.png" alt="screen">
