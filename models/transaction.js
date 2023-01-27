@@ -90,3 +90,11 @@ module.exports = {
 // categories = масив категорій
 // categories.map()
 // arr.filter(trans.category == "").reduce((total, trans) => { return total + trans.sum }, 0)
+
+// "date": "12-6-2022",
+// "type": "true",
+// "category": "Car",
+// "sum": "200"
+
+// "email": "tree@gmail.com",
+// "password": "Tree12"
