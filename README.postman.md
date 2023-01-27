@@ -18,4 +18,4 @@
 - #### Заносимо першу і третю змінні (`base_url` & `token`), які використовує postman, (друга змінна - по бажанню). Якщо потрібно перемикатись (це більше для розробника), тоді додаємо другу змінну, щоб було посилання завжди під рукою. Програма використовує саме `current value`. Додавати змінну потрібно через кнопку `edit`:
   <img src="./assets/postman/Screenshot_6.png" alt="screen">
 - #### Приклад доданих змінних `base_url` & `token` та змінна із вільною назвою. Сервіс - `https://goit-wallet-back.onrender.com`:
-  <img src="./assets/postman/Screenshot_8.png" alt="screen">
+  <img src="assets/postman/Screenshot_8.png" alt="screen">
