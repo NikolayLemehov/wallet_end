@@ -1,6 +1,6 @@
 openapi: 3.0.3
 info:
-  title: Wallet - Swagger OpenAPI 3.0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  title: Wallet - Swagger OpenAPI 3.0
   description: |-
     This is a GoIT group project by Swagger OpenAPI 3.0
   version: 1.0.0
@@ -16,10 +16,10 @@ tags:
     description: Operations about user
 
 paths:
-  /transition:
+  /transitions:
     get:
       tags:
-        - contact
+        - transition
       summary: Return all contacts
       description: Return all contacts by authorized User
       operationId: getAllContacts
