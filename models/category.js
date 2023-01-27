@@ -15,6 +15,6 @@ const joiCategorySchema = Joi.object({
   name: Joi.string().required(),
 });
 
-const Model = model('categories', categorySchema);
+const Model = model('category', categorySchema);
 
 module.exports = { Model, joiCategorySchema };
