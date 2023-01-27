@@ -1,4 +1,4 @@
-const {Model: Transaction} = require("../../models").transactions;
+const { Model: Transaction } = require("../../models").transactions;
 
 function prettyNum(num) {
   return num.toString().padStart(2, "0");
@@ -7,6 +7,7 @@ function prettyNum(num) {
 const getStatistic = async (req, res) => {
   const {_id: owner} = req.user;
   const {year, month} = req.query;
+
   const transactions = await Transaction.find(
     {
       owner,
@@ -18,6 +19,15 @@ const getStatistic = async (req, res) => {
     "-createdAt -updatedAt"
   )
   .populate("category", "-createdAt -updatedAt");
+
+  const categories = [...new Set(transactions.map(trans => trans.category))];
+
+  const statistic = categories.map((category) => ({
+    category,
+    totalSum: transactions
+    .filter(trans => trans.category._id === category._id)
+    .reduce((total, trans) => { return total + trans.sum }, 0)})
+  );
 
   // const tr = await Transaction.aggregate([
   //   {
@@ -42,8 +52,7 @@ const getStatistic = async (req, res) => {
     status: "success",
     code: 200,
     data: {
-      result: transactions,
-      // result: tr,
+      statistic,
     },
   });
 };

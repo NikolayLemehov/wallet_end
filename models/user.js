@@ -42,17 +42,12 @@ const registerJoiSchema = Joi.object({
 });
 
 const loginJoiSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).min(10).max(63).required(),
-  password: Joi.string().pattern(passwordRegexp).min(6).max(16).required(),
-});
-
-const emailJoiSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).min(10).max(63).required(),
+  email: Joi.string().required(),
+  password: Joi.string().required(),
 });
 
 module.exports = {
   Model,
   registerJoiSchema,
   loginJoiSchema,
-  emailJoiSchema,
 };
