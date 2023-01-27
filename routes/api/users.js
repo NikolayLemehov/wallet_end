@@ -13,7 +13,4 @@ router.post("/signout", auth, ctrl.logout);
 
 router.get("/current", auth, ctrl.getCurrent);
 
-
-// router.patch('/', auth, validation(users.subscriptionJoiSchema), ctrlWrapper(ctrl.updateSubscription));
-
 module.exports = router;
