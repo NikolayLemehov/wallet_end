@@ -1,6 +1,6 @@
 const swaggerUI = require('swagger-ui-express');
 const swaggerJsDoc = require('swagger-jsdoc');
-const {DEFAULT_PORT} = require("../../config");
+const {DEFAULT_PORT} = require('../../config');
 const {LOCATION, PORT = DEFAULT_PORT} = process.env;
 
 const specs = swaggerJsDoc({

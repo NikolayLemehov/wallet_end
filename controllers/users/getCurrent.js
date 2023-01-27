@@ -1,12 +1,12 @@
-const {ctrlWrapper} = require("../../middlewares/index.js");
+const { ctrlWrapper } = require("../../middlewares/index.js");
 const getCurrent = async (req, res) => {
-  const {email, subscription} = req.user;
+  const { _id, name, balance } = req.user;
 
-  res
-    .status(200)
-    .json({
-      data: {email, subscription},
-    });
+  res.status(200).json({
+    id: _id,
+    name,
+    balance,
+  });
 };
 
 module.exports = ctrlWrapper(getCurrent);

@@ -1,17 +1,18 @@
-const express = require('express');
-const ctrl = require('../../controllers/users');
-const {validation, auth} = require('../../middlewares');
-const {users} = require('../../models');
+const express = require("express");
+const ctrl = require("../../controllers").users;
+const { validation, auth } = require("../../middlewares");
+const { users } = require("../../models");
 
 const router = express.Router();
 
-router.post('/register', validation(users.registerJoiSchema), ctrl.register);
+router.post("/signup", validation(users.registerJoiSchema), ctrl.register);
 
-router.post('/login', validation(users.loginJoiSchema), ctrl.login);
+router.post("/signin", validation(users.loginJoiSchema), ctrl.login);
 
-router.get('/current', auth, ctrl.getCurrent);
+router.post("/signout", auth, ctrl.logout);
 
-router.post('/logout', auth, ctrl.logout);
+router.get("/current", auth, ctrl.getCurrent);
+
 
 // router.patch('/', auth, validation(users.subscriptionJoiSchema), ctrlWrapper(ctrl.updateSubscription));
 

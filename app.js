@@ -5,8 +5,8 @@ const cors = require('cors');
 const router = require('./routes/api');
 
 const swaggerUI = require('swagger-ui-express');
-const YAML = require("yamljs");
-const swaggerJSDocs = YAML.load("./api.yaml");
+const YAML = require('yamljs');
+const swaggerJSDocs = YAML.load('./api.yaml');
 
 const app = express();
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerJSDocs));
@@ -17,8 +17,9 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
-// app.use('/api/contacts', router.contacts);
+app.use('/api/transactions', router.transactions);
 app.use('/api/users', router.users);
+app.use('/api/categories', router.category);
 
 app.use((req, res) => {
   res.status(404).json({message: 'Not found'});

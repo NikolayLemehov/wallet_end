@@ -1,5 +1,5 @@
-const users = require('./user');
-const transactions = require('./transaction');
+const users = require('./users');
+const transactions = require('./transactions');
 const category = require('./category');
 
 module.exports = {
