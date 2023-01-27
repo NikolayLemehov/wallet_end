@@ -3,6 +3,7 @@ const validationQuery = schema => {
     const {error} = schema.validate(req.query);
     if (error) {
       error.status = 400;
+      error.message = 'params: ' + error.message;
       next(error);
     }
     next();
