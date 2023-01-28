@@ -119,7 +119,7 @@
 			"name": "categories",
 			"item": [
 				{
-					"name": "all contacts",
+					"name": "all categories",
 					"request": {
 						"auth": {
 							"type": "bearer",
