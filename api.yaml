@@ -11,9 +11,12 @@ servers:
     description: web server
 tags:
   - name: transition
-    description: Everything about your Contacts
+    description: Everything about your transition
   - name: user
     description: Operations about user
+  - name: categories
+    description: Operations about categories
+  
 
 paths:
   /transitions:
