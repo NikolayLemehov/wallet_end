@@ -11,8 +11,9 @@ const add = async (req, res) => {
 
   const transIndex = [...transactions].findIndex(it => it._id.toString() === transaction._id.toString());
 
+  // const addedArr = transactions.slice();
   const addedArr = transactions.slice(transIndex);
-  const lastRightBalance = transactions[transIndex - 1].balanceAfter;
+  const lastRightBalance = transIndex === 0 ? 0 : transactions[transIndex - 1].balanceAfter;
   const result = [...addedArr].reduce((acc, it) => {
     it.balanceAfter = acc.balance + (it.type ? 1 : -1) * it.sum;
     acc.balance = it.balanceAfter;
@@ -25,18 +26,19 @@ const add = async (req, res) => {
   }, {collection: [], balance: lastRightBalance})
   await Transaction.create(...result.collection);
 
-  // const newCollections = await Transaction
-  //   .find({owner}, 'updatedAt createdAt sum balanceAfter date type')
-  //   .populate("category", "-createdAt -updatedAt")
-  //   .sort({date: 1, updatedAt: 1});
+  const newCollections = await Transaction
+    .find({owner}, 'updatedAt createdAt sum balanceAfter date type')
+    .populate("category", "-createdAt -updatedAt")
+    .sort({date: 1, updatedAt: 1});
+
+  req.user.balance = newCollections[newCollections.length - 1].balanceAfter;
+  await req.user.save();
 
   res.status(201).json({
     status: 'success',
     code: 201,
     data: {
-      transaction,
-      // transactions: newCollections,
-      // newArr,
+      result: transactions[transIndex],
     },
   });
 };

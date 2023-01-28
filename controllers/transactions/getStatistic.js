@@ -1,4 +1,4 @@
-const {Model: Transaction} = require("../../models").transactions;
+const { Model: Transaction } = require("../../models").transactions;
 
 function prettyNum(num) {
   return num.toString().padStart(2, "0");
@@ -7,6 +7,7 @@ function prettyNum(num) {
 const getStatistic = async (req, res) => {
   const {_id: owner} = req.user;
   const {year, month} = req.query;
+
   const transactions = await Transaction.find(
     {
       owner,
@@ -42,8 +43,7 @@ const getStatistic = async (req, res) => {
     status: "success",
     code: 200,
     data: {
-      result: transactions,
-      // result: tr,
+      transactions,
     },
   });
 };
