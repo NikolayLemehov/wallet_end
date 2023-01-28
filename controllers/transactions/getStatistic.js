@@ -16,7 +16,7 @@ const getStatistic = async (req, res) => {
         $lte: new Date(new Date (`${year}-${prettyNum(+month + 1)}-01`) - 1),
       },
     },
-    "-createdAt -updatedAt"
+    "-createdAt -updatedAt",
   )
   .populate("category", "-createdAt -updatedAt");
 

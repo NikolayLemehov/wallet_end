@@ -21,9 +21,9 @@ const add = async (req, res) => {
 
     return {
       collection: acc.collection,
-      balance: it.balanceAfter
+      balance: it.balanceAfter,
     };
-  }, {collection: [], balance: lastRightBalance})
+  }, {collection: [], balance: lastRightBalance});
   await Transaction.create(...result.collection);
 
   const newCollections = await Transaction
