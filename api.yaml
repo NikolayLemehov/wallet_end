@@ -63,7 +63,7 @@ paths:
                         example: 63ae03618abaf4e28f8b6de0
                       email:
                         type: string
-                        example: heloto1087@subdito.com
+                        example: dmytro01@mail.com
                       name:
                         type: string
                         example: Dmytro
@@ -89,7 +89,7 @@ paths:
               properties:
                 email:
                   type: string
-                  example: dmytro@mail.com
+                  example: dmytro01@mail.com
                 password:
                   type: string
                   example: 12341234dD
@@ -107,9 +107,15 @@ paths:
                   data:
                     type: object
                     properties:
+                      name:
+                        type: string
+                        example: "Dmytro"
                       email:
                         type: string
-                        example: heloto1086@subdito.com
+                        example: dmytro01@mail.com
+                      balance:
+                        type: number
+                        example: 0,
                       token:
                         type: string
                         example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTc1MzFmNzE2NTUzMDNiMDRlNzlmNSIsImlhdCI6MTY3MjM0OTI1NCwiZXhwIjoxNjcyMzUyODU0fQ.Je08KoEnthe8OYMKlhVN7KXix-Qzz5bDC3hPOjKqf2I
