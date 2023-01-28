@@ -2,19 +2,6 @@ const { Schema, model } = require('mongoose');
 const Joi = require('joi');
 const { HandleMongooseError } = require('../helpers');
 
-const categories = [
-  'Main expenses',
-  'Products',
-  'Car',
-  'Self care',
-  'Child care',
-  'Household products',
-  'Education',
-  'Leisure',
-  'Other expenses',
-  'Entertainment',
-];
-
 const transactionSchema = new Schema({
     date: {
       type: Date,
@@ -60,7 +47,7 @@ const Model = model('transaction', transactionSchema);
 const addTransJoiSchema = Joi.object({
   date: Joi.date().required(),
   type: Joi.boolean().required(),
-  category: Joi.allow(...categories).required(),
+  category: Joi.string().required(),
   comment: Joi.string(),
   sum: Joi.number().min(0.01).required(),
   balanceAfter: Joi.number(),
@@ -76,17 +63,3 @@ module.exports = {
   getStatisticJoiSchema,
   Model,
 };
-
-// TO DO
-// const find = async() => {
-//   console.log(await Transaction.find({}, "createdAt").sort({createdAt: -1}));
-// зберігаємо в масив, витягуємо баланс з елемента під 0 індексом і додаєм, щоб отримати поточний баланс
-// }
-// find();
-
-// приймає місяць та рік (month = 1, year = 2023)
-// const arr = await Transaction.find({ date: { $gte: 1-${month}-2023, $lte: 32-2-2023 } });
-// на фронт енді:
-// categories = масив категорій
-// categories.map()
-// arr.filter(trans.category == "").reduce((total, trans) => { return total + trans.sum }, 0)
