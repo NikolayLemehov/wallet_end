@@ -48,8 +48,8 @@ paths:
                 - name
                 - password
       responses:
-        '200':
-          description: successful operation
+        '201':
+          description: successful operation, user added
           content:
             application/json:
               schema:
@@ -64,13 +64,9 @@ paths:
                       email:
                         type: string
                         example: heloto1087@subdito.com
-                      avatarURL:
+                      name:
                         type: string
-                        example: //www.gravatar.com/avatar/b55a93a2247e23f37e111dd343b88bcd
-                      subscription:
-                        type: string
-                        enum: [starter, pro, business]
-                        example: starter
+                        example: Dmytro
                   message:
                     type: string
                     example: "User by id: ${user._id} has been created"
@@ -93,10 +89,10 @@ paths:
               properties:
                 email:
                   type: string
-                  example: heloto1086@subdito.com
+                  example: dmytro@mail.com
                 password:
                   type: string
-                  example: 12341234
+                  example: 12341234dD
               required:
                 - email
                 - password
