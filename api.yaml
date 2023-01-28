@@ -71,7 +71,7 @@ paths:
                     type: string
                     example: "User by id: ${user._id} has been created"
         '409':
-          description: "Email in use"
+          description: "Email has been used"
 
   /users/signin:
     post:
