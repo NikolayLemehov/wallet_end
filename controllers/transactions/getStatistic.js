@@ -20,15 +20,6 @@ const getStatistic = async (req, res) => {
   )
   .populate("category", "-createdAt -updatedAt");
 
-  const categories = [...new Set(transactions.map(trans => trans.category))];
-
-  const statistic = categories.map((category) => ({
-    category,
-    totalSum: transactions
-    .filter(trans => trans.category._id === category._id)
-    .reduce((total, trans) => { return total + trans.sum }, 0)})
-  );
-
   // const tr = await Transaction.aggregate([
   //   {
   //     $match: {
@@ -52,7 +43,7 @@ const getStatistic = async (req, res) => {
     status: "success",
     code: 200,
     data: {
-      statistic,
+      transactions,
     },
   });
 };
