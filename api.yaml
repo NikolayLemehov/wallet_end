@@ -135,6 +135,16 @@ paths:
       responses:
         '204':
           description: successful operation
+        '401':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Not authorized"
       security:
         - BearerAuth: [ ]
 
@@ -158,11 +168,16 @@ paths:
                     properties:
                       email:
                         type: string
-                        example: heloto1086@subdito.com
-                      subscription:
+                        example: 63d5655cfbdc957b26ccedfa
+                      id:
                         type: string
-                        enum: [ starter, pro, business ]
-                        example: starter
+                        example: dmytro01@mail.com
+                      name:
+                        type: string
+                        example: Dmytro
+                      balance:
+                        type: number
+                        example: 0
       security:
         - BearerAuth: [ ]
 
