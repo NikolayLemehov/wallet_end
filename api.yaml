@@ -224,8 +224,8 @@ paths:
                   message:
                     type: string
                     example: 'Transition by id: {transition._id} has been added'
-        '404':
-          description: Contact by id hasn't been found
+        '401':
+          $ref: '#/components/responses/401'
       security:
         - BearerAuth: []
 
