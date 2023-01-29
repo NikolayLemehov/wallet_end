@@ -16,7 +16,7 @@ tags:
     description: Everything about your transaction
   - name: categories
     description: Operations about categories
-  
+
 
 paths:
 
@@ -182,32 +182,33 @@ paths:
         - BearerAuth: [ ]
 
   /transactions:
+
     get:
       tags:
         - transactions
-      summary: Return all contacts
-      description: Return all contacts by authorized User
-      operationId: getAllContacts
+      summary: Return all transitions
+      description: Return all transitions by authorized User
+      operationId: getAllTransitions
       parameters:
         - $ref: '#/components/parameters/page'
         - $ref: '#/components/parameters/limit'
       responses:
         '200':
-          $ref: '#/components/responses/getAllContacts'
+          $ref: '#/components/responses/getAllTransitions'
       security:
         - BearerAuth: []
+
     post:
       tags:
         - transactions
       summary: Add new transaction
       description: Add new contact by authorized User
-      operationId: addItemContacts
+      operationId: addItemTransitions
       requestBody:
-        $ref: '#/components/requestBodies/ContactsAdd'
-
+        $ref: '#/components/requestBodies/TransitionAdd'
       responses:
         '200':
-          description: Successful operation, return new contact
+          description: Successful operation, return new transition
           content:
             application/json:
               schema:
@@ -216,11 +217,11 @@ paths:
                   data:
                     type: object
                     properties:
-                      contact:
-                        $ref: '#/components/schemas/Contact'
+                      transition:
+                        $ref: '#/components/schemas/Transition'
                   message:
                     type: string
-                    example: 'Contact by id: {contact._id} has been added'
+                    example: 'Transition by id: {transition._id} has been added'
         '404':
           description: Contact by id hasn't been found
       security:
@@ -245,10 +246,10 @@ paths:
                     type: object
                     properties:
                       contact:
-                        $ref: '#/components/schemas/Contact'
+                        $ref: '#/components/schemas/Transition'
                   message:
                     type: string
-                    example: "Contact by id: {{$response.body#/data/contact._id}} has been added"
+                    example: "Contact by id: {{$response.body#/data/transition._id}} has been added"
           links:
             GetUserById:
               description: get user by id description
@@ -353,7 +354,7 @@ paths:
 
 components:
   schemas:
-    Contact:
+    Transition:
       type: object
       properties:
         _id:
@@ -378,18 +379,18 @@ components:
     User:
       type: object
       properties:
-        id:
+        _id:
           type: string
           example: 63a56a3008692c79628e64fa
         email:
           type: string
-          example: mail@mail.com
+          example: dmytro01@mail.com
+        name:
+          type: string
+          example: Dmytro
         password:
           type: string
-          example: asdfasdf
-        subscription:
-          type: boolean
-          example: false
+          example: 12341234dF
         token:
           type: string
           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTc1MzFmNzE2NTUzMDNiMDRlNzlmNSIsImlhdCI6MTY3MjIzOTkwNywiZXhwIjoxNjcyMjQzNTA3fQ.hJ6Ey-HYaCM6uvDinn1WXd9Q_ZQ8_UU3-VxypPGMYhc
@@ -420,15 +421,15 @@ components:
         default: 1
     limit:
       in: query
-      name: page
+      name: limit
       required: false
       schema:
         type: integer
         minimum: 1
-        example: 6
-        default: 6
+        example: 12
+        default: 12
   responses:
-    getAllContacts:
+    getAllTransitions:
       description: Successful operation
       content:
         application/json:
@@ -438,16 +439,16 @@ components:
               data:
                 type: object
                 properties:
-                  contacts:
+                  transitions:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Contact'
+                      $ref: '#/components/schemas/Transition'
                   page:
                     $ref: '#/components/parameters/page'
                   limit:
                     $ref: '#/components/parameters/limit'
   requestBodies:
-    ContactsAdd:
+    TransitionAdd:
       description: Add new contact
       content:
         application/json:
