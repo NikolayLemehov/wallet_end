@@ -442,6 +442,12 @@ components:
               data:
                 type: object
                 properties:
+                  status: 
+                    type: string
+                    example: success
+                  code: 
+                    type: number
+                    example: 200
                   transitions:
                     type: array
                     items:
@@ -455,8 +461,8 @@ components:
                   length:
                     type: number
                     example: 26
-    401:
-      description: successful operation
+    '401':
+      description: invalid authorization
       content:
         application/json:
           schema:
