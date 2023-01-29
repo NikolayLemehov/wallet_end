@@ -58,7 +58,7 @@ paths:
                   data:
                     type: object
                     properties:
-                      id:
+                      _id:
                         type: string
                         example: 63ae03618abaf4e28f8b6de0
                       email:
@@ -195,6 +195,8 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/getAllTransitions'
+        '401':
+          $ref: '#/components/responses/401'
       security:
         - BearerAuth: []
 
@@ -359,19 +361,20 @@ components:
       properties:
         _id:
           type: string
-          example: asdf
-        name:
+          example: 63d66c6390792a579a81e189
+        date:
           type: string
-          example: Nick
-        email:
-          type: string
-          example: mail@mail.com
-        phone:
-          type: string
-          example: 123456
-        favorite:
+          example: '2021-02-28T00:00:00.000Z'
+        type:
           type: boolean
           example: false
+        category:
+          type: string
+          example: 63d2548b350d2f7f3413914b
+          description: category ID
+        comment:
+          type: string
+          example: Any comment of owner
         owner:
           $ref: '#/components/schemas/User'
       xml:
@@ -444,10 +447,24 @@ components:
                     items:
                       $ref: '#/components/schemas/Transition'
                   page:
-                    $ref: '#/components/parameters/page'
+                    type: integer
+                    example: 1
                   limit:
-                    $ref: '#/components/parameters/limit'
-  requestBodies:
+                    type: integer
+                    example: 12
+                  length:
+                    type: number
+                    example: 26
+    401:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Not authorized"
     TransitionAdd:
       description: Add new contact
       content:
