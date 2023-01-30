@@ -369,6 +369,39 @@ paths:
 
 components:
   schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 63a56a3008692c79628e64fa
+        email:
+          type: string
+          example: dmytro01@mail.com
+        name:
+          type: string
+          example: Dmytro
+        password:
+          type: string
+          example: 12341234dF
+        token:
+          type: string
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTc1MzFmNzE2NTUzMDNiMDRlNzlmNSIsImlhdCI6MTY3MjIzOTkwNywiZXhwIjoxNjcyMjQzNTA3fQ.hJ6Ey-HYaCM6uvDinn1WXd9Q_ZQ8_UU3-VxypPGMYhc
+        avatarURLType:
+          type: string
+          enum: [default, local, web]
+          example: 'local'
+        avatarURL:
+          type: string
+          example: avatars/default.png
+        verify:
+          type: boolean
+          example: false
+        verificationToken:
+          type: string
+          example: 9sJsOiz8VsLqiVsmvvRUa
+      xml:
+        name: user
     Transaction:
       type: object
       properties:
@@ -404,39 +437,6 @@ components:
           example: Products
       xml:
         name: category
-    User:
-      type: object
-      properties:
-        _id:
-          type: string
-          example: 63a56a3008692c79628e64fa
-        email:
-          type: string
-          example: dmytro01@mail.com
-        name:
-          type: string
-          example: Dmytro
-        password:
-          type: string
-          example: 12341234dF
-        token:
-          type: string
-          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTc1MzFmNzE2NTUzMDNiMDRlNzlmNSIsImlhdCI6MTY3MjIzOTkwNywiZXhwIjoxNjcyMjQzNTA3fQ.hJ6Ey-HYaCM6uvDinn1WXd9Q_ZQ8_UU3-VxypPGMYhc
-        avatarURLType:
-          type: string
-          enum: [default, local, web]
-          example: 'local'
-        avatarURL:
-          type: string
-          example: avatars/default.png
-        verify:
-          type: boolean
-          example: false
-        verificationToken:
-          type: string
-          example: 9sJsOiz8VsLqiVsmvvRUa
-      xml:
-        name: user
   parameters:
     page:
       in: query
