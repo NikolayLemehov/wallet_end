@@ -326,6 +326,46 @@ paths:
       security:
         - BearerAuth: []
 
+  /categories:
+    get:
+      tags:
+        - categories
+      summary: Return all categories
+      description: Return all categories
+      operationId: getAllCategories
+      responses:
+        '200':
+          description: Successful operation, return all categories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  code:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                              example: 63d2548b350d2f7f34139148
+                            name:
+                              type: string
+                              example: Car
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        - BearerAuth: []
+
 
 components:
   schemas:
