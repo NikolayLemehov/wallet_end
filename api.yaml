@@ -216,10 +216,10 @@ paths:
               $ref: '#/components/schemas/RequestBodyTransaction'
 
       # requestBody:
-      #   $ref: '#/components/requestBodies/Transition'
+      #   $ref: '#/components/requestBodies/Transaction'
       responses:
         '201':
-          description: Successful operation, return new transition
+          description: Successful operation, return new Transaction
           content:
             application/json:
               schema:
@@ -369,7 +369,7 @@ paths:
 
 components:
   schemas:
-    Transition:
+    Transaction:
       type: object
       properties:
         _id:
@@ -392,7 +392,18 @@ components:
           type: string
           example: 63d5655cfbdc957b26ccedfa
       xml:
-        name: contact
+        name: transaction
+    Category:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 63d2548b350d2f7f34139147
+        name:
+          type: string
+          example: Products
+      xml:
+        name: category
     RequestBodyTransaction:
       type: object
       properties:
@@ -539,7 +550,7 @@ components:
                   transitions:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Transition'
+                      $ref: '#/components/schemas/Transaction'
                   page:
                     type: integer
                     example: 1
