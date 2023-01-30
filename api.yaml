@@ -207,7 +207,16 @@ paths:
       description: Add new contact by authorized User
       operationId: addItemTransitions
       requestBody:
-        $ref: '#/components/requestBodies/TransitionAdd'
+        
+        description: The transaction to create.
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RequestBodyTransaction'
+
+      # requestBody:
+      #   $ref: '#/components/requestBodies/Transition'
       responses:
         '200':
           description: Successful operation, return new transition
@@ -224,6 +233,16 @@ paths:
                   message:
                     type: string
                     example: 'Transition by id: {transition._id} has been added'
+        '400':
+          description: invalid authorization
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Body: \"date\" is required"
         '401':
           $ref: '#/components/responses/401'
       security:
@@ -379,6 +398,27 @@ components:
           $ref: '#/components/schemas/User'
       xml:
         name: contact
+    RequestBodyTransaction:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          example: '2021-02-28'
+          required: true
+        type:
+          type: boolean
+          example: true
+        category:
+          type: string
+          description: category ID
+          example: 63d2548b350d2f7f3413914b
+        comment:
+          type: string
+          example: Nick comment expensive
+        sum:
+          type: number
+          example: 16
     User:
       type: object
       properties:
