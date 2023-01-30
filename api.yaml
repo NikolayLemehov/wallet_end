@@ -286,129 +286,45 @@ paths:
       security:
         - BearerAuth: []
 
-  /transactions/{contactId}:
+  /transactions/statistic:
     get:
       tags:
         - transactions
-      summary: Find contact by Id
-      description: Find contact by Id
-      operationId: getContactById
+      summary: Return transactions statistic of month
+      description: Return transactions statistic of month
+      operationId: getTransactionStatistic
+      parameters:
+        - $ref: '#/components/parameters/month'
+        - $ref: '#/components/parameters/year'
       responses:
         '200':
-          description: Successful operation, return contact what found.
+          description: Successful operation, return transactions statistic of month.
           content:
             application/json:
               schema:
                 type: object
                 properties:
+                  status:
+                    type: string
+                    example: success
+                  code:
+                    type: integer
+                    example: 200
                   data:
                     type: object
                     properties:
-                      contact:
-                        $ref: '#/components/schemas/Transition'
-                  message:
-                    type: string
-                    example: "Contact by id: {{$response.body#/data/transition._id}} has been added"
-          links:
-            GetUserById:
-              description: get user by id description
-              operationId: getUser
-        '404':
-          description: "Contact by id: {contactId} hasn't been found"
+                      transactions:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/ResponseTransactionsStatistic'
+          # links:
+          #   GetUserById:
+          #     description: get user by id description
+          #     operationId: getUser
+        '401':
+          $ref: '#/components/responses/401'
       security:
         - BearerAuth: []
-    delete:
-      tags:
-        - contact
-      summary: Delete contact by Id
-      description: Delete contact by Id
-      operationId: deleteContactById
-      responses:
-        '200':
-          description: Successful operation, return contact what found.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      contact:
-                        $ref: '#/components/schemas/Contact'
-                  message:
-                    type: string
-                    example: "Contact by id: ${contactId} has been deleted"
-          links:
-            GetUserById:
-              description: get user by id description
-              operationId: getUser
-        '404':
-          description: "Contact by id: ${contactId} hasn't been found"
-      security:
-        - BearerAuth: []
-    put:
-      tags:
-        - contact
-      summary: Update contact by Id
-      description: Update contact by Id
-      operationId: putContactsById
-      responses:
-        '200':
-          description: Successful operation, return contact what found.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      contact:
-                        $ref: '#/components/schemas/Contact'
-                  message:
-                    type: string
-                    example: "Contact by id: ${contact.id} has been update"
-          links:
-            GetUserById:
-              description: get user by id description
-              operationId: getUser
-        '404':
-          description: "Contact by id: ${contactId} hasn't been found"
-      security:
-        - BearerAuth: []
-
-  /transactions/{contactId}/favorite:
-    patch:
-      tags:
-        - transactions
-      summary: Update contact favorite by Id
-      description: Update contact favorite by Id
-      operationId: patchContactsFavoriteById
-      responses:
-        '200':
-          description: Successful operation, return contact what updated.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      contact:
-                        $ref: '#/components/schemas/Contact'
-                  message:
-                    type: string
-                    example: "Contact favorite by id: ${contact.id} has been update"
-          links:
-            GetUserById:
-              description: get user by id description
-              operationId: getUser
-        '404':
-          description: "Contact by id: ${contactId} hasn't been found"
-      security:
-        - BearerAuth: [ ]
 
 
 components:
@@ -456,8 +372,44 @@ components:
           type: string
           example: Nick comment expensive
         sum:
-          type: integer
+          type: number
           example: 16
+    ResponseTransactionsStatistic:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 63d321397ead9b3982dc06ff
+        date:
+          type: string
+          format: date
+          example: '2021-02-01'
+        type:
+          type: boolean
+          example: true
+        category:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: category ID
+              example: 63d2548b350d2f7f3413914b
+            name:
+              type: string
+              example: Products
+        comment:
+          type: string
+          example: Nick comment expensive
+        sum:
+          type: number
+          example: 16
+        balanceAfter:
+          type: number
+          example: 315
+        owner:
+          type: string
+          description: user ID
+          example: 63d270489cda8444abf67637
     User:
       type: object
       properties:
@@ -535,6 +487,23 @@ components:
         minimum: 1
         example: 12
         default: 12
+    month:
+      in: query
+      name: month
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 12
+        example: 7
+    year:
+      in: query
+      name: year
+      required: true
+      schema:
+        type: integer
+        minimum: 2000
+        example: 2022
   responses:
     getAllTransitions:
       description: Successful operation
