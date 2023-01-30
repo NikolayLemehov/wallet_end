@@ -41,7 +41,7 @@ paths:
                   type: string
                   example: Dmytro
                 password:
-                  type: string
+                  type: password
                   example: 12341234dD
               required:
                 - email
@@ -91,7 +91,7 @@ paths:
                   type: string
                   example: dmytro01@mail.com
                 password:
-                  type: string
+                  type: password
                   example: 12341234dD
               required:
                 - email
@@ -225,24 +225,62 @@ paths:
               schema:
                 type: object
                 properties:
+                  status:
+                    type: string
+                    example: success
+                  code:
+                    type: number
+                    example: 201
                   data:
                     type: object
                     properties:
-                      transition:
-                        $ref: '#/components/schemas/Transition'
-                  message:
-                    type: string
-                    example: 'Transition by id: {transition._id} has been added'
+                      result:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            example: 63d7f1e937cad57fb8bc8609
+                          date:
+                            type: string
+                            example: '2021-02-28T00:00:00.000Z'
+                          type:
+                            type: boolean
+                            example: true
+                          category:
+                            type: string
+                            description: category ID
+                            example: 63d2548b350d2f7f3413914b 
+                          comment:
+                            type: string
+                            example: Nick comment expensive
+                          sum:
+                            type: integer
+                            example: 16
+                          balanceAfter:
+                            type: integer
+                            example: 48
+                          owner:
+                            type: string
+                            description: user ID
+                            example: 63d5655cfbdc957b26ccedfa
+                          createdAt:
+                            type: string
+                            format: date-time
+                            example: '2023-01-30T16:35:53.478Z'
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            example: '2023-01-30T16:35:53.577Z'
         '400':
-          description: invalid authorization
+          description: invalid request body
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Body: \"date\" is required"
+                oneOf:
+                  - $ref: '#/components/schemas/body400/date'
+                  - $ref: '#/components/schemas/body400/type'
+                  - $ref: '#/components/schemas/body400/category'
+                  - $ref: '#/components/schemas/body400/sum'
         '401':
           $ref: '#/components/responses/401'
       security:
@@ -395,7 +433,8 @@ components:
           type: string
           example: Any comment of owner
         owner:
-          $ref: '#/components/schemas/User'
+          type: string
+          example: 63d5655cfbdc957b26ccedfa
       xml:
         name: contact
     RequestBodyTransaction:
@@ -417,7 +456,7 @@ components:
           type: string
           example: Nick comment expensive
         sum:
-          type: number
+          type: integer
           example: 16
     User:
       type: object
@@ -452,6 +491,31 @@ components:
           example: 9sJsOiz8VsLqiVsmvvRUa
       xml:
         name: user
+    body400:
+      date:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"date\" is required"
+      type:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"type\" is required"
+      category:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"category\" is required"
+      sum:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"sum\" is required"
   parameters:
     page:
       in: query
@@ -527,12 +591,6 @@ components:
               phone:
                 type: string
                 example: 12341234
-    Pet:
-      description: Pet object that needs to be added to the store
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Pet'
   securitySchemes:
     BearerAuth:
       type: http
