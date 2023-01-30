@@ -213,7 +213,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/RequestBodyTransaction'
+              $ref: '#/components/parameters/RequestBodyTransaction'
 
       # requestBody:
       #   $ref: '#/components/requestBodies/Transaction'
@@ -404,27 +404,6 @@ components:
           example: Products
       xml:
         name: category
-    RequestBodyTransaction:
-      type: object
-      properties:
-        date:
-          type: string
-          format: date
-          example: '2021-02-28'
-          required: true
-        type:
-          type: boolean
-          example: true
-        category:
-          type: string
-          description: category ID
-          example: 63d2548b350d2f7f3413914b
-        comment:
-          type: string
-          example: Nick comment expensive
-        sum:
-          type: number
-          example: 16
     ResponseTransactionsStatistic:
       type: object
       properties:
@@ -530,6 +509,27 @@ components:
         type: integer
         minimum: 2000
         example: 2022
+    RequestBodyTransaction:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          example: '2021-02-28'
+          required: true
+        type:
+          type: boolean
+          example: true
+        category:
+          type: string
+          description: category ID
+          example: 63d2548b350d2f7f3413914b
+        comment:
+          type: string
+          example: Nick comment expensive
+        sum:
+          type: number
+          example: 16
   responses:
     getAllTransitions:
       description: Successful operation
