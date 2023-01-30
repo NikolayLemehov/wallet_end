@@ -10,182 +10,17 @@ servers:
   - url: https://goit-wallet-back.onrender.com/api
     description: web server
 tags:
-  - name: contact
-    description: Everything about your Contacts
   - name: user
     description: Operations about user
+  - name: transactions
+    description: Everything about your transaction
+  - name: categories
+    description: Operations about categories
+
 
 paths:
-  /contacts:
-    get:
-      tags:
-        - contact
-      summary: Return all contacts
-      description: Return all contacts by authorized User
-      operationId: getAllContacts
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/limit'
-      responses:
-        '200':
-          $ref: '#/components/responses/getAllContacts'
-      security:
-        - BearerAuth: []
-    post:
-      tags:
-        - contact
-      summary: Add new contact
-      description: Add new contact by authorized User
-      operationId: addItemContacts
-      requestBody:
-        $ref: '#/components/requestBodies/ContactsAdd'
 
-      responses:
-        '200':
-          description: Successful operation, return new contact
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      contact:
-                        $ref: '#/components/schemas/Contact'
-                  message:
-                    type: string
-                    example: 'Contact by id: {contact._id} has been added'
-        '404':
-          description: Contact by id hasn't been found
-      security:
-        - BearerAuth: []
-
-  /contacts/{contactId}:
-    get:
-      tags:
-        - contact
-      summary: Find contact by Id
-      description: Find contact by Id
-      operationId: getContactById
-      responses:
-        '200':
-          description: Successful operation, return contact what found.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      contact:
-                        $ref: '#/components/schemas/Contact'
-                  message:
-                    type: string
-                    example: "Contact by id: {{$response.body#/data/contact._id}} has been added"
-          links:
-            GetUserById:
-              description: get user by id description
-              operationId: getUser
-        '404':
-          description: "Contact by id: {contactId} hasn't been found"
-      security:
-        - BearerAuth: []
-    delete:
-      tags:
-        - contact
-      summary: Delete contact by Id
-      description: Delete contact by Id
-      operationId: deleteContactById
-      responses:
-        '200':
-          description: Successful operation, return contact what found.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      contact:
-                        $ref: '#/components/schemas/Contact'
-                  message:
-                    type: string
-                    example: "Contact by id: ${contactId} has been deleted"
-          links:
-            GetUserById:
-              description: get user by id description
-              operationId: getUser
-        '404':
-          description: "Contact by id: ${contactId} hasn't been found"
-      security:
-        - BearerAuth: []
-    put:
-      tags:
-        - contact
-      summary: Update contact by Id
-      description: Update contact by Id
-      operationId: putContactsById
-      responses:
-        '200':
-          description: Successful operation, return contact what found.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      contact:
-                        $ref: '#/components/schemas/Contact'
-                  message:
-                    type: string
-                    example: "Contact by id: ${contact.id} has been update"
-          links:
-            GetUserById:
-              description: get user by id description
-              operationId: getUser
-        '404':
-          description: "Contact by id: ${contactId} hasn't been found"
-      security:
-        - BearerAuth: []
-
-  /contacts/{contactId}/favorite:
-    patch:
-      tags:
-        - contact
-      summary: Update contact favorite by Id
-      description: Update contact favorite by Id
-      operationId: patchContactsFavoriteById
-      responses:
-        '200':
-          description: Successful operation, return contact what updated.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      contact:
-                        $ref: '#/components/schemas/Contact'
-                  message:
-                    type: string
-                    example: "Contact favorite by id: ${contact.id} has been update"
-          links:
-            GetUserById:
-              description: get user by id description
-              operationId: getUser
-        '404':
-          description: "Contact by id: ${contactId} hasn't been found"
-      security:
-        - BearerAuth: [ ]
-
-  /users/register:
+  /users/signup:
     post:
       tags:
         - user
@@ -201,16 +36,20 @@ paths:
               properties:
                 email:
                   type: string
-                  example: heloto1086@subdito.com
-                password:
+                  example: dmytro01@mail.com
+                name:
                   type: string
-                  example: 12341234
+                  example: Dmytro
+                password:
+                  type: password
+                  example: 12341234dD
               required:
                 - email
+                - name
                 - password
       responses:
-        '200':
-          description: successful operation
+        '201':
+          description: successful operation, user added
           content:
             application/json:
               schema:
@@ -219,26 +58,22 @@ paths:
                   data:
                     type: object
                     properties:
-                      id:
+                      _id:
                         type: string
                         example: 63ae03618abaf4e28f8b6de0
                       email:
                         type: string
-                        example: heloto1087@subdito.com
-                      avatarURL:
+                        example: dmytro01@mail.com
+                      name:
                         type: string
-                        example: //www.gravatar.com/avatar/b55a93a2247e23f37e111dd343b88bcd
-                      subscription:
-                        type: string
-                        enum: [starter, pro, business]
-                        example: starter
+                        example: Dmytro
                   message:
                     type: string
                     example: "User by id: ${user._id} has been created"
         '409':
-          description: "Email in use"
+          description: "Email has been used"
 
-  /users/login:
+  /users/signin:
     post:
       tags:
         - user
@@ -254,10 +89,10 @@ paths:
               properties:
                 email:
                   type: string
-                  example: heloto1086@subdito.com
+                  example: dmytro01@mail.com
                 password:
-                  type: string
-                  example: 12341234
+                  type: password
+                  example: 12341234dD
               required:
                 - email
                 - password
@@ -272,9 +107,15 @@ paths:
                   data:
                     type: object
                     properties:
+                      name:
+                        type: string
+                        example: "Dmytro"
                       email:
                         type: string
-                        example: heloto1086@subdito.com
+                        example: dmytro01@mail.com
+                      balance:
+                        type: number
+                        example: 0,
                       token:
                         type: string
                         example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTc1MzFmNzE2NTUzMDNiMDRlNzlmNSIsImlhdCI6MTY3MjM0OTI1NCwiZXhwIjoxNjcyMzUyODU0fQ.Je08KoEnthe8OYMKlhVN7KXix-Qzz5bDC3hPOjKqf2I
@@ -283,6 +124,29 @@ paths:
                     example: "User by id: 63a7531f71655303b04e79f5 has been authorized"
         '401':
           description: Email or password or verification is wrong
+
+  /users/signout:
+    post:
+      tags:
+        - user
+      summary: Logout user
+      description: ''
+      operationId: logoutUser
+      responses:
+        '204':
+          description: successful operation
+        '401':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Not authorized"
+      security:
+        - BearerAuth: [ ]
 
   /users/current:
     get:
@@ -304,216 +168,222 @@ paths:
                     properties:
                       email:
                         type: string
-                        example: heloto1086@subdito.com
-                      subscription:
+                        example: 63d5655cfbdc957b26ccedfa
+                      id:
                         type: string
-                        enum: [ starter, pro, business ]
-                        example: starter
+                        example: dmytro01@mail.com
+                      name:
+                        type: string
+                        example: Dmytro
+                      balance:
+                        type: number
+                        example: 0
       security:
         - BearerAuth: [ ]
 
-  /users/logout:
+  /transactions:
+
+    get:
+      tags:
+        - transactions
+      summary: Return all transitions
+      description: Return all transitions by authorized User
+      operationId: getAllTransitions
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
+      responses:
+        '200':
+          $ref: '#/components/responses/getAllTransitions'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        - BearerAuth: []
+
     post:
       tags:
-        - user
-      summary: Logout user
-      description: ''
-      operationId: logoutUser
-      responses:
-        '204':
-          description: successful operation
-      security:
-        - BearerAuth: [ ]
-
-  /users:
-    patch:
-      tags:
-        - user
-      summary: Update subscription
-      description: ''
-      operationId: updateUserSubscription
+        - transactions
+      summary: Add new transaction
+      description: Add new contact by authorized User
+      operationId: addItemTransitions
       requestBody:
-        description: New subscription
+        
+        description: The transaction to create.
+        required: true
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                subscription:
-                  type: string
-                  enum: [ starter, pro, business ]
-                  example: pro
-              required:
-                - subscription
+              $ref: '#/components/parameters/RequestBodyTransaction'
+
+      # requestBody:
+      #   $ref: '#/components/requestBodies/Transaction'
       responses:
-        '200':
-          description: successful operation
+        '201':
+          description: Successful operation, return new Transaction
           content:
             application/json:
               schema:
                 type: object
                 properties:
+                  status:
+                    type: string
+                    example: success
+                  code:
+                    type: number
+                    example: 201
                   data:
                     type: object
                     properties:
-                      email:
-                        type: string
-                        example: heloto1086@subdito.com
-                      subscription:
-                        type: string
-                        enum: [ starter, pro, business ]
-                        example: pro
-                  message:
-                    type: string
-                    example: "Subscription has been changed to ${user.subscription}"
-      security:
-        - BearerAuth: [ ]
-
-  /users/avatars:
-    patch:
-      tags:
-        - user
-      summary: Update avatar
-      description: ''
-      operationId: updateUserAvatar
-      requestBody:
-        description: update avatar
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                avatarFileName:
-                  type: string
-                  format: binary
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  data:
-                    type: object
-                    properties:
-                      avatar:
-                        type: string
-                        example: "avatars\\63ae0b4fc6dabd90d7b69d9c_my-photo.jpg"
-                  message:
-                    type: string
-                    example: "Avatar has been changed to ${user.avatarURL}"
-      security:
-        - BearerAuth: [ ]
-
-  /users/verify:
-    get:
-      tags:
-        - user
-      summary: Verify Email
-      description: ''
-      operationId: verifyUserEmail
-      requestBody:
-        description: verify user email
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                avatarFileName:
-                  type: string
-                  format: binary
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    example: "Verification email sent"
+                      result:
+                        type: object
+                        properties:
+                          _id:
+                            type: string
+                            example: 63d7f1e937cad57fb8bc8609
+                          date:
+                            type: string
+                            example: '2021-02-28T00:00:00.000Z'
+                          type:
+                            type: boolean
+                            example: true
+                          category:
+                            type: string
+                            description: category ID
+                            example: 63d2548b350d2f7f3413914b 
+                          comment:
+                            type: string
+                            example: Nick comment expensive
+                          sum:
+                            type: integer
+                            example: 16
+                          balanceAfter:
+                            type: integer
+                            example: 48
+                          owner:
+                            type: string
+                            description: user ID
+                            example: 63d5655cfbdc957b26ccedfa
+                          createdAt:
+                            type: string
+                            format: date-time
+                            example: '2023-01-30T16:35:53.478Z'
+                          updatedAt:
+                            type: string
+                            format: date-time
+                            example: '2023-01-30T16:35:53.577Z'
         '400':
-          description: Not found email
-        '404':
-          description: Verification has already been passed
+          description: invalid request body
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/responses/body400/date'
+                  - $ref: '#/components/responses/body400/type'
+                  - $ref: '#/components/responses/body400/category'
+                  - $ref: '#/components/responses/body400/sum'
+        '401':
+          $ref: '#/components/responses/401'
       security:
-        - BearerAuth: [ ]
+        - BearerAuth: []
 
-  /users/verifyEmail:
+  /transactions/statistic:
     get:
       tags:
-        - user
-      summary: Verify Email again
-      description: ''
-      operationId: verifyUserEmailAgain
-      requestBody:
-        description: verify user email again
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                avatarFileName:
-                  type: string
-                  format: binary
+        - transactions
+      summary: Return transactions statistic of month
+      description: Return transactions statistic of month
+      operationId: getTransactionStatistic
+      parameters:
+        - $ref: '#/components/parameters/month'
+        - $ref: '#/components/parameters/year'
       responses:
         '200':
-          description: successful operation
+          description: Successful operation, return transactions statistic of month.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  message:
+                  status:
                     type: string
-                    example: "Verification successful"
-        '404':
-          description: User not found
+                    example: success
+                  code:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      transactions:
+                        type: array
+                        items:
+                          $ref: '#/components/responses/ResponseTransactionsStatistic'
+          # links:
+          #   GetUserById:
+          #     description: get user by id description
+          #     operationId: getUser
+        '401':
+          $ref: '#/components/responses/401'
       security:
-        - BearerAuth: [ ]
+        - BearerAuth: []
+
+  /categories:
+    get:
+      tags:
+        - categories
+      summary: Return all categories
+      description: Return all categories
+      operationId: getAllCategories
+      responses:
+        '200':
+          description: Successful operation, return all categories.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  code:
+                    type: integer
+                    example: 200
+                  data:
+                    type: object
+                    properties:
+                      transactions:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            _id:
+                              type: string
+                              example: 63d2548b350d2f7f34139148
+                            name:
+                              type: string
+                              example: Car
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        - BearerAuth: []
 
 
 components:
   schemas:
-    Contact:
+    User:
       type: object
       properties:
         _id:
           type: string
-          example: asdf
-        name:
-          type: string
-          example: Nick
-        email:
-          type: string
-          example: mail@mail.com
-        phone:
-          type: string
-          example: 123456
-        favorite:
-          type: boolean
-          example: false
-        owner:
-          $ref: '#/components/schemas/User'
-      xml:
-        name: contact
-    User:
-      type: object
-      properties:
-        id:
-          type: string
           example: 63a56a3008692c79628e64fa
         email:
           type: string
-          example: mail@mail.com
+          example: dmytro01@mail.com
+        name:
+          type: string
+          example: Dmytro
         password:
           type: string
-          example: asdfasdf
-        subscription:
-          type: boolean
-          example: false
+          example: 12341234dF
         token:
           type: string
           example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYTc1MzFmNzE2NTUzMDNiMDRlNzlmNSIsImlhdCI6MTY3MjIzOTkwNywiZXhwIjoxNjcyMjQzNTA3fQ.hJ6Ey-HYaCM6uvDinn1WXd9Q_ZQ8_UU3-VxypPGMYhc
@@ -532,6 +402,47 @@ components:
           example: 9sJsOiz8VsLqiVsmvvRUa
       xml:
         name: user
+    Transaction:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 63d66c6390792a579a81e189
+        date:
+          type: string
+          example: '2021-02-28T00:00:00.000Z'
+        type:
+          type: boolean
+          example: false
+        category:
+          type: string
+          example: 63d2548b350d2f7f3413914b
+          description: category ID
+        comment:
+          type: string
+          example: Any comment of owner
+        owner:
+          type: object
+          properties:
+            _id:
+              type: string
+              example: 63d5655cfbdc957b26ccedfa
+            name:
+              type: string
+              example: Dmytro
+      xml:
+        name: transaction
+    Category:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 63d2548b350d2f7f34139147
+        name:
+          type: string
+          example: Products
+      xml:
+        name: category
   parameters:
     page:
       in: query
@@ -544,15 +455,89 @@ components:
         default: 1
     limit:
       in: query
-      name: page
+      name: limit
       required: false
       schema:
         type: integer
         minimum: 1
-        example: 6
-        default: 6
+        example: 12
+        default: 12
+    month:
+      in: query
+      name: month
+      required: true
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 12
+        example: 7
+    year:
+      in: query
+      name: year
+      required: true
+      schema:
+        type: integer
+        minimum: 2000
+        example: 2022
+    RequestBodyTransaction:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date
+          example: '2021-02-28'
+          required: true
+        type:
+          type: boolean
+          example: true
+        category:
+          type: string
+          description: category ID
+          example: 63d2548b350d2f7f3413914b
+        comment:
+          type: string
+          example: Nick comment expensive
+        sum:
+          type: number
+          example: 16
   responses:
-    getAllContacts:
+    ResponseTransactionsStatistic:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 63d321397ead9b3982dc06ff
+        date:
+          type: string
+          format: date
+          example: '2021-02-01'
+        type:
+          type: boolean
+          example: true
+        category:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: category ID
+              example: 63d2548b350d2f7f3413914b
+            name:
+              type: string
+              example: Products
+        comment:
+          type: string
+          example: Nick comment expensive
+        sum:
+          type: number
+          example: 16
+        balanceAfter:
+          type: number
+          example: 315
+        owner:
+          type: string
+          description: user ID
+          example: 63d270489cda8444abf67637
+    getAllTransitions:
       description: Successful operation
       content:
         application/json:
@@ -562,16 +547,61 @@ components:
               data:
                 type: object
                 properties:
-                  contacts:
+                  status: 
+                    type: string
+                    example: success
+                  code: 
+                    type: number
+                    example: 200
+                  transitions:
                     type: array
                     items:
-                      $ref: '#/components/schemas/Contact'
+                      $ref: '#/components/schemas/Transaction'
                   page:
-                    $ref: '#/components/parameters/page'
+                    type: integer
+                    example: 1
                   limit:
-                    $ref: '#/components/parameters/limit'
-  requestBodies:
-    ContactsAdd:
+                    type: integer
+                    example: 12
+                  length:
+                    type: number
+                    example: 26
+    body400:
+      date:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"date\" is required"
+      type:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"type\" is required"
+      category:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"category\" is required"
+      sum:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"sum\" is required"
+    '401':
+      description: invalid authorization
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Not authorized"
+    TransitionAdd:
       description: Add new contact
       content:
         application/json:
@@ -587,12 +617,6 @@ components:
               phone:
                 type: string
                 example: 12341234
-    Pet:
-      description: Pet object that needs to be added to the store
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Pet'
   securitySchemes:
     BearerAuth:
       type: http
