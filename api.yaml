@@ -422,8 +422,14 @@ components:
           type: string
           example: Any comment of owner
         owner:
-          type: string
-          example: 63d5655cfbdc957b26ccedfa
+          type: object
+          properties:
+            _id:
+              type: string
+              example: 63d5655cfbdc957b26ccedfa
+            name:
+              type: string
+              example: Dmytro
       xml:
         name: transaction
     Category:
