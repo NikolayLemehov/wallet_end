@@ -277,10 +277,10 @@ paths:
             application/json:
               schema:
                 oneOf:
-                  - $ref: '#/components/schemas/body400/date'
-                  - $ref: '#/components/schemas/body400/type'
-                  - $ref: '#/components/schemas/body400/category'
-                  - $ref: '#/components/schemas/body400/sum'
+                  - $ref: '#/components/responses/body400/date'
+                  - $ref: '#/components/responses/body400/type'
+                  - $ref: '#/components/responses/body400/category'
+                  - $ref: '#/components/responses/body400/sum'
         '401':
           $ref: '#/components/responses/401'
       security:
@@ -483,31 +483,6 @@ components:
           example: 9sJsOiz8VsLqiVsmvvRUa
       xml:
         name: user
-    body400:
-      date:
-        type: object
-        properties:
-          message:
-            type: string
-            example: "Body: \"date\" is required"
-      type:
-        type: object
-        properties:
-          message:
-            type: string
-            example: "Body: \"type\" is required"
-      category:
-        type: object
-        properties:
-          message:
-            type: string
-            example: "Body: \"category\" is required"
-      sum:
-        type: object
-        properties:
-          message:
-            type: string
-            example: "Body: \"sum\" is required"
   parameters:
     page:
       in: query
@@ -574,6 +549,31 @@ components:
                   length:
                     type: number
                     example: 26
+    body400:
+      date:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"date\" is required"
+      type:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"type\" is required"
+      category:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"category\" is required"
+      sum:
+        type: object
+        properties:
+          message:
+            type: string
+            example: "Body: \"sum\" is required"
     '401':
       description: invalid authorization
       content:
