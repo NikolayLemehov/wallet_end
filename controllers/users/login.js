@@ -12,14 +12,13 @@ const login = async (req, res) => {
   if (!user)
     throw createError(
       401,
-      `User with email ${email} is not registered
-    `,
+      `User with email ${email} is not registered.`,
     );
 
   if (!(await bcrypt.compare(password, user.password)))
     throw createError(
       401,
-      'Incorrect password entered! Please, check the keyboard layout and Caps Lock',
+      'Incorrect password entered! Please, check the keyboard layout and Caps Lock.',
     );
 
   const payload = {
