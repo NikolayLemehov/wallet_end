@@ -218,7 +218,7 @@ paths:
       # requestBody:
       #   $ref: '#/components/requestBodies/Transition'
       responses:
-        '200':
+        '201':
           description: Successful operation, return new transition
           content:
             application/json:
