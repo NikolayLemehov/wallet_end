@@ -15,7 +15,7 @@ const getAll = async (req, res) => {
     },
   )
     .populate('owner', 'name')
-    .sort({date: 1, updatedAt: 1});
+    .sort({date: -1, updatedAt: -1});
 
   res.json({
     status: 'success',
