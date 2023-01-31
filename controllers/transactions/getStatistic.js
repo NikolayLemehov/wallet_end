@@ -1,3 +1,4 @@
+const moment = require("moment");
 const { Model: Transaction } = require("../../models").transactions;
 
 function prettyNum(num) {
@@ -13,7 +14,7 @@ const getStatistic = async (req, res) => {
       owner,
       date: {
         $gte: new Date(`${year}-${prettyNum(month)}-01`),
-        $lte: new Date(new Date (`${year}-${prettyNum(+month + 1)}-01`) - 1),
+        $lte: moment(`${year}-${prettyNum(month)}-01`).subtract(1, 'days').toDate(),
       },
     },
     "-createdAt -updatedAt",
