@@ -14,7 +14,7 @@ const getAll = async (req, res) => {
       limit,
     },
   )
-    .populate('owner', 'name')
+    .populate('category', 'name')
     .sort({date: -1, updatedAt: -1});
 
   res.json({
