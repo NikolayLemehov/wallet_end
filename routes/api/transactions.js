@@ -10,6 +10,8 @@ const router = express.Router();
 
 router.get("/", auth, ctrl.getAll);
 
+router.get("/pagination", auth, ctrl.getPaginationAll);
+
 router.post("/", auth, validation(transactions.addTransJoiSchema), ctrl.add);
 
 router.get("/statistic", auth, validationQuery(transactions.getStatisticJoiSchema), ctrl.getStatistic);

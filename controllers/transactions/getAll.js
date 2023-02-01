@@ -2,17 +2,10 @@ const { Model:Transaction } = require('../../models').transactions;
 
 const getAll = async (req, res) => {
   const { _id: owner } = req.user;
-  const { page = 1, limit = 100 } = req.query;
-  const skip = (page - 1) * limit;
 
   const transactions = await Transaction.find(
     { owner },
     '-createdAt -updatedAt',
-    // 'createdAt updatedAt date sum',
-    {
-      skip,
-      limit,
-    },
   )
     .populate('category', 'name')
     .sort({date: -1, updatedAt: -1});
@@ -20,12 +13,7 @@ const getAll = async (req, res) => {
   res.json({
     status: 'success',
     code: 200,
-    data: {
-      transactions,
-      page,
-      limit,
-      length: transactions.length,
-    },
+    transactions,
   });
 };
 

@@ -41,7 +41,8 @@ paths:
                   type: string
                   example: Dmytro
                 password:
-                  type: password
+                  type: string
+                  format: password
                   example: 12341234dD
               required:
                 - email
@@ -91,7 +92,8 @@ paths:
                   type: string
                   example: dmytro01@mail.com
                 password:
-                  type: password
+                  type: string
+                  format: password
                   example: 12341234dD
               required:
                 - email
@@ -181,6 +183,21 @@ paths:
       security:
         - BearerAuth: [ ]
 
+  /transactions/pagination:
+    get:
+      tags:
+        - transactions
+      summary: Return all pagination transitions
+      description: Return all pagination transitions by authorized User
+      operationId: getAllPaginationTransitions
+      responses:
+        '200':
+          $ref: '#/components/responses/getAllPaginationTransitions'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        - BearerAuth: []
+
   /transactions:
 
     get:
@@ -207,7 +224,7 @@ paths:
       description: Add new contact by authorized User
       operationId: addItemTransitions
       requestBody:
-        
+
         description: The transaction to create.
         required: true
         content:
@@ -249,7 +266,7 @@ paths:
                           category:
                             type: string
                             description: category ID
-                            example: 63d2548b350d2f7f3413914b 
+                            example: 63d2548b350d2f7f3413914b
                           comment:
                             type: string
                             example: Nick comment expensive
@@ -547,10 +564,10 @@ components:
               data:
                 type: object
                 properties:
-                  status: 
+                  status:
                     type: string
                     example: success
-                  code: 
+                  code:
                     type: number
                     example: 200
                   transitions:
@@ -566,6 +583,17 @@ components:
                   length:
                     type: number
                     example: 26
+    getAllPaginationTransitions:
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              transitions:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Transaction'
     body400:
       date:
         type: object
