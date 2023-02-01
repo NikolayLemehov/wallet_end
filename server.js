@@ -5,10 +5,11 @@ const app = require('./app');
 
 mongoose.set('strictQuery', true);
 
-const {PORT = 4000, DB_HOST} = process.env;
+const { PORT = 4000, DB_HOST } = process.env;
 
 (async () => {
-  await mongoose.connect(DB_HOST)
+  await mongoose
+    .connect(DB_HOST)
     // .then(() => console.log('Database connection successful'))
     .catch(e => {
       console.log(`Database error: ${e.message}`);
