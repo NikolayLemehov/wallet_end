@@ -5,10 +5,11 @@ const getAll = async (req, res) => {
 
   const transactions = await Transaction.find(
     { owner },
-    '-createdAt -updatedAt',
+    '-updatedAt',
+    // 'createdAt sum balanceAfter type',
   )
     .populate('category', 'name')
-    .sort({date: -1, updatedAt: -1});
+    .sort({date: -1, createdAt: -1});
 
   res.json({
     status: 'success',
