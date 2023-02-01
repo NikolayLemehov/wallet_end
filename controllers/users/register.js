@@ -4,7 +4,9 @@ const bcrypt = require('bcrypt');
 const { ctrlWrapper } = require('../../middlewares/index.js');
 
 const register = async (req, res) => {
-  const { email, password, name } = req.body;
+  const { email: willEmail, password, name: willName } = req.body;
+  const email = willEmail.trim();
+  const name = willName.trim();
   const existedUser = await User.findOne({ email });
   if (existedUser)
     throw createError(409, `Email ${email} has been already used.`);
