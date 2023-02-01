@@ -8,35 +8,43 @@ function prettyNum(num) {
 const getStatistic = async (req, res) => {
   const {_id: owner} = req.user;
   const {year, month} = req.query;
+  const gte = moment(`${year}-${prettyNum(month)}-01`)
+    .toDate();
+  const lte = moment(`${year}-${prettyNum(month)}-01`)
+    .add(1, 'days')
+    .subtract(1, 'milliseconds')
+    .toDate();
 
   const transactions = await Transaction.find(
     {
       owner,
       date: {
-        $gte: new Date(`${year}-${prettyNum(month)}-01`),
-        $lte: moment(`${year}-${prettyNum(month)}-01`).subtract(1, 'days').toDate(),
+        $gte: gte,
+        $lte: lte,
       },
     },
     "-createdAt -updatedAt",
   )
   .populate("category", "-createdAt -updatedAt");
 
-  // const tr = await Transaction.aggregate([
+  // const transactions = await Transaction
+  //   .populate("category", "-createdAt -updatedAt")
+  //   .aggregate([
   //   {
   //     $match: {
   //       $and: [
   //         {$expr: {$eq: ["$owner", owner]}},
   //         {$expr: {$gte: ['$date', new Date(`${year}-${prettyNum(month)}-01`)]}},
   //         {$expr: {$lt: ['$date', new Date(`${year}-${prettyNum(+month + 1)}-01`)]}},
-  //       ]
-  //     }
+  //       ],
+  //     },
   //   },
-  //   {
-  //     $group: {
-  //       _id: '$category',
-  //       category: {$push: "$category"},
-  //     }
-  //   }
+  //   // {
+  //   //   $group: {
+  //   //     _id: '$category',
+  //   //     category: {$push: "$category"},
+  //   //   },
+  //   // },
   //   ]);
   // console.log(tr)
 
