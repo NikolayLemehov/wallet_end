@@ -11,7 +11,7 @@ const getStatistic = async (req, res) => {
   const gte = moment(`${year}-${prettyNum(month)}-01`)
     .toDate();
   const lte = moment(`${year}-${prettyNum(month)}-01`)
-    .add(1, 'days')
+    .add(1, 'months')
     .subtract(1, 'milliseconds')
     .toDate();
 
