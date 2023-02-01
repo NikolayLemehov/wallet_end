@@ -1,19 +1,28 @@
+const createError = require("http-errors");
 const { Model: Transaction } = require('../../models').transactions;
-const { Model: Category } = require('../../models').category;
+// const { Model: Category } = require('../../models').category;
 
-const add = async (req, res) => {
+const delById = async (req, res) => {
+  const {transactionId} = req.params;
   const { _id: owner } = req.user;
 
-  const category = (await Category.findById(req.body.category))._id;
+  // const category = await Category.findById(req.body.category);
 
-  const transaction = await Transaction.create({ ...req.body, category, owner, balanceAfter: 0 });
+  // const transaction = await Transaction.create({ ...req.body, category: category._id, owner, balanceAfter: 0 });
+  const deletedTransaction = await Transaction.findById(transactionId);
+
+  if (!deletedTransaction) throw createError(400, `${transactionId} is not valid id`);
+
   const transactions = await Transaction.find({owner}).sort({date: 1, updatedAt: 1});
 
-  const transIndex = [...transactions].findIndex(it => it._id.toString() === transaction._id.toString());
+  const transIndex = transactions.findIndex(it => it._id.toString() === transactionId);
+
+  await Transaction.findByIdAndDelete(transactionId);
 
   // const addedArr = transactions.slice();
-  const addedArr = transactions.slice(transIndex);
+  const addedArr = transactions.slice(transIndex - 1);
   const lastRightBalance = transIndex === 0 ? 0 : transactions[transIndex - 1].balanceAfter;
+
   const result = [...addedArr].reduce((acc, it) => {
     it.balanceAfter = acc.balance + (it.type ? 1 : -1) * it.sum;
     acc.balance = it.balanceAfter;
@@ -34,13 +43,11 @@ const add = async (req, res) => {
   req.user.balance = newCollections[newCollections.length - 1].balanceAfter;
   await req.user.save();
 
-  res.status(201).json({
+  res.status(200).json({
     status: 'success',
-    code: 201,
-    data: {
-      result: transactions[transIndex],
-    },
+    code: 200,
+    message: `${transactionId} has been deleted`,
   });
 };
 
-module.exports = add;
+module.exports = delById;

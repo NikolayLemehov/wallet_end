@@ -11,8 +11,8 @@ const add = async (req, res) => {
 
   const transIndex = [...transactions].findIndex(it => it._id.toString() === transaction._id.toString());
 
-  // const addedArr = transactions.slice();
-  const addedArr = transactions.slice(transIndex);
+  const addedArr = transactions.slice();
+  // const addedArr = transactions.slice(transIndex);
   const lastRightBalance = transIndex === 0 ? 0 : transactions[transIndex - 1].balanceAfter;
   const result = [...addedArr].reduce((acc, it) => {
     it.balanceAfter = acc.balance + (it.type ? 1 : -1) * it.sum;
