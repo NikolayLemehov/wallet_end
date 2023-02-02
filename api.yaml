@@ -5,10 +5,10 @@ info:
     This is a GoIT group project by Swagger OpenAPI 3.0
   version: 1.0.0
 servers:
-  - url: http://localhost:4000/api
-    description: local server
   - url: https://goit-wallet-back.onrender.com/api
     description: web server
+  - url: http://localhost:4000/api
+    description: local server
 tags:
   - name: user
     description: Operations about user
