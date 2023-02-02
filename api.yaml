@@ -190,6 +190,9 @@ paths:
       summary: Return all pagination transitions
       description: Return all pagination transitions by authorized User
       operationId: getAllPaginationTransitions
+      parameters:
+        - $ref: '#/components/parameters/page'
+        - $ref: '#/components/parameters/limit'
       responses:
         '200':
           $ref: '#/components/responses/getAllPaginationTransitions'
@@ -206,9 +209,6 @@ paths:
       summary: Return all transitions
       description: Return all transitions by authorized User
       operationId: getAllTransitions
-      parameters:
-        - $ref: '#/components/parameters/page'
-        - $ref: '#/components/parameters/limit'
       responses:
         '200':
           $ref: '#/components/responses/getAllTransitions'
@@ -300,13 +300,20 @@ paths:
       security:
         - BearerAuth: []
 
-  /transactions/:transactionId:
+  /transactions/{transactionId}:
     delete:
       tags:
         - transactions
       summary: Delete transaction by ID
       description: Delete transaction by ID
       operationId: deleteItemTransitions
+      parameters:
+        - in: path
+          name: transactionId
+          schema:
+            type: string
+          required: true
+          description: Transaction ID that to delete
       responses:
         '201':
           description: Successful operation, return deleted Transaction ID
