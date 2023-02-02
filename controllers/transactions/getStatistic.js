@@ -27,27 +27,6 @@ const getStatistic = async (req, res) => {
   )
   .populate("category", "-createdAt -updatedAt");
 
-  // const transactions = await Transaction
-  //   .populate("category", "-createdAt -updatedAt")
-  //   .aggregate([
-  //   {
-  //     $match: {
-  //       $and: [
-  //         {$expr: {$eq: ["$owner", owner]}},
-  //         {$expr: {$gte: ['$date', new Date(`${year}-${prettyNum(month)}-01`)]}},
-  //         {$expr: {$lt: ['$date', new Date(`${year}-${prettyNum(+month + 1)}-01`)]}},
-  //       ],
-  //     },
-  //   },
-  //   // {
-  //   //   $group: {
-  //   //     _id: '$category',
-  //   //     category: {$push: "$category"},
-  //   //   },
-  //   // },
-  //   ]);
-  // console.log(tr)
-
   res.json({
     status: "success",
     code: 200,
