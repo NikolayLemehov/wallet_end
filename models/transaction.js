@@ -14,7 +14,7 @@ const transactionSchema = new Schema({
     category: {
       type: Schema.Types.ObjectId,
       ref: 'category',
-      required: true,
+      required: false,
     },
     comment: {
       type: String,
@@ -47,8 +47,8 @@ const Model = model('transaction', transactionSchema);
 const addTransJoiSchema = Joi.object({
   date: Joi.date().required(),
   type: Joi.boolean().required(),
-  category: Joi.string().required(),
-  comment: Joi.string(),
+  category: Joi.string(),
+  comment: Joi.string().empty(''),
   sum: Joi.number().min(0.01).required(),
   balanceAfter: Joi.number(),
 });

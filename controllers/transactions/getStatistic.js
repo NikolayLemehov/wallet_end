@@ -27,6 +27,34 @@ const getStatistic = async (req, res) => {
   )
   .populate("category", "-createdAt -updatedAt");
 
+  // first way
+
+  // const arr = transactions
+  //   // .map(trans => trans.date)
+  //   .reduce((acc, trans) => {
+  //     const year = new Date(trans.date).getFullYear();
+  //     const month = new Date(trans.date).getMonth() + 1;
+  //     if (!acc[year]) {
+  //       acc.year = [];
+  //     }
+  //     acc.year.push(month);
+  //     return acc;
+  //   }, {});
+  // console.log(arr);
+
+  // second way
+  // const arr = transactions.reduce((acc, trans) => {
+  //   const year = new Date(trans.date).getFullYear();
+  //   const month = new Date(trans.date).getMonth();
+  //   return acc = month + 1;
+  // }, {year: [month]});
+
+  // console.log(arr);
+
+  // const result = {
+  //   "2022": [],
+  // };
+
   res.json({
     status: "success",
     code: 200,
