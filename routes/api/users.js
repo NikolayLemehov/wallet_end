@@ -1,10 +1,6 @@
 const express = require('express');
 const ctrl = require('../../controllers').users;
-const {
-  validation,
-  auth,
-  // passport
-} = require('../../middlewares');
+const { validation, auth, passport } = require('../../middlewares');
 const { users } = require('../../models');
 
 const router = express.Router();
@@ -13,18 +9,18 @@ router.post('/signup', validation(users.registerJoiSchema), ctrl.register);
 
 router.post('/signin', validation(users.loginJoiSchema), ctrl.login);
 
-// router.get(
-//   '/google',
-//   passport.authenticate('google', {
-//     scope: ['email', 'profile'],
-//   }),
-// );
-//
-// router.get(
-//   '/google/callback',
-//   passport.authenticate('google', { session: false }),
-//   ctrl.googleAuth,
-// );
+router.get(
+  '/google',
+  passport.authenticate('google', {
+    scope: ['email', 'profile'],
+  }),
+);
+
+router.get(
+  '/google/callback',
+  passport.authenticate('google', { session: false }),
+  ctrl.googleAuth,
+);
 
 router.post('/signout', auth, ctrl.logout);
 
