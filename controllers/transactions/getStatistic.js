@@ -32,12 +32,12 @@ const getStatistic = async (req, res) => {
   const dateArr = [...allTransactions]
     .reduce((acc, trans) => {
       const year = new Date(trans.date).getFullYear();
-      const month = new Date(trans.date).getMonth() + 1;
+      const month = new Date(trans.date).getMonth();
       if (!acc[year]) {
-        acc[year] = [];
+        acc[year] = Array(12).fill(false);
       }
-      if (acc[year].includes(month)) return acc;
-      acc[year].push(month);
+      if (acc[year][month]) return acc;
+      acc[year][month] = true;
       return acc;
     }, {});
 
