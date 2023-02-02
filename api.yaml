@@ -231,9 +231,6 @@ paths:
           application/json:
             schema:
               $ref: '#/components/parameters/RequestBodyTransaction'
-
-      # requestBody:
-      #   $ref: '#/components/requestBodies/Transaction'
       responses:
         '201':
           description: Successful operation, return new Transaction
@@ -298,6 +295,35 @@ paths:
                   - $ref: '#/components/responses/body400/type'
                   - $ref: '#/components/responses/body400/category'
                   - $ref: '#/components/responses/body400/sum'
+        '401':
+          $ref: '#/components/responses/401'
+      security:
+        - BearerAuth: []
+
+  /transactions/:transactionId:
+    delete:
+      tags:
+        - transactions
+      summary: Delete transaction by ID
+      description: Delete transaction by ID
+      operationId: deleteItemTransitions
+      responses:
+        '201':
+          description: Successful operation, return deleted Transaction ID
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: success
+                  code:
+                    type: number
+                    example: 201
+                  message:
+                    type: string
+                    example: transactionId has been deleted
         '401':
           $ref: '#/components/responses/401'
       security:
