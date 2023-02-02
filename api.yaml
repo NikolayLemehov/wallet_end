@@ -360,6 +360,55 @@ paths:
                         type: array
                         items:
                           $ref: '#/components/responses/ResponseTransactionsStatistic'
+                      dateArr:
+                        type: object
+                        properties:
+                          '2022':
+                            type: array
+                            items:
+                              - type: boolean
+                                example: true
+                              - type: boolean
+                                example: false
+                              - type: boolean
+                                example: true
+                              - type: boolean
+                                example: false
+                              - type: boolean
+                                example: true
+                              - type: boolean
+                                example: true
+                              - type: boolean
+                                example: true
+                              - type: boolean
+                                example: true
+                              - type: boolean
+                                example: true
+                              - type: boolean
+                                example: true
+                          '2023':
+                            type: array
+                            items:
+                              - type: boolean
+                                example: true
+                              - type: boolean
+                                example: false
+                              - type: boolean
+                                example: false
+                              - type: boolean
+                                example: false
+                              - type: boolean
+                                example: false
+                              - type: boolean
+                                example: false
+                              - type: boolean
+                                example: false
+                              - type: boolean
+                                example: false
+                              - type: boolean
+                                example: false
+                              - type: boolean
+                                example: false
           # links:
           #   GetUserById:
           #     description: get user by id description
