@@ -3,6 +3,7 @@ const login = require('./login');
 const getCurrent = require('./getCurrent');
 const logout = require('./logout');
 const googleAuth = require('./googleAuth');
+const loginWithToken = require('./loginWithToken');
 
 module.exports = {
   register,
@@ -10,4 +11,5 @@ module.exports = {
   getCurrent,
   logout,
   googleAuth,
+  loginWithToken,
 };
