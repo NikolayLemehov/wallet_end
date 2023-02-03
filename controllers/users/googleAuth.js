@@ -12,7 +12,7 @@ const googleAuth = async (req, res) => {
   const token = jwt.sign(payload, SECRET_KEY, { expiresIn: '100h' });
   await User.findByIdAndUpdate(id, { token });
 
-  res.redirect(`http://localhost:3000/wallet_front?token=${token}`);
+  res.redirect(`https://nikolaylemehov.github.io/wallet_front?token=${token}`);
 };
 
 module.exports = ctrlWrapper(googleAuth);
