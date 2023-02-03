@@ -9,6 +9,8 @@ router.post('/signup', validation(users.registerJoiSchema), ctrl.register);
 
 router.post('/signin', validation(users.loginJoiSchema), ctrl.login);
 
+router.post('/signin-with-token', ctrl.loginWithToken);
+
 router.get(
   '/google',
   passport.authenticate('google', {
