@@ -1,6 +1,12 @@
 const { Model: Transaction } = require('../models').transactions;
 
 const calcBalanceAfterAndBalance = async (transactions, ownerId, user) => {
+  if (transactions.length === 0) {
+    user.balance = 0;
+    await user.save();
+    return;
+  }
+
   const addedArr = transactions.slice();
   // const addedArr = transactions.slice(transIndex - 1);
   // const lastRightBalance = transIndex === 0 ? 0 : transactions[transIndex - 1].balanceAfter;
