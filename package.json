@@ -31,7 +31,7 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "eslint": "^8.37.0",
+    "eslint": "^7.19.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-standard": "16.0.3",
     "eslint-plugin-import": "2.25.3",
@@ -41,9 +41,7 @@
     "nodemon": "^2.0.22"
   },
   "eslintIgnore": [
-    "node_modules",
-    ".pnp.loader.mjs",
-    ".pnp.cjs"
+    "node_modules"
   ],
   "lint-staged": {
     "./**/*.js": [
@@ -51,8 +49,7 @@
     ]
   },
   "volta": {
-    "node": "18.0.0",
-    "yarn": "1.22.19"
+    "node": "18.0.0"
   },
   "engines": {
     "node": ">=18.0.0"
