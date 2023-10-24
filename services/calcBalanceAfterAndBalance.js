@@ -1,5 +1,6 @@
 const { Model: Transaction } = require('../models').transactions;
 
+
 const calcBalanceAfterAndBalance = async (transactions, ownerId, user) => {
   if (transactions.length === 0) {
     user.balance = 0;
